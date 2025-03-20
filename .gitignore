@@ -10,6 +10,7 @@
 
 # Configuración de Visual Studio Code
 .vscode/
+.vs/
 
 # Carpetas de publicación
 publish/
