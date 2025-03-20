@@ -5,7 +5,7 @@ Esta solución de backend para la gestión de inventarios utiliza una arquitectu
 - **ProductService:** Gestiona productos (crear, editar, listar, eliminar).
 - **TransactionService:** Gestiona transacciones de inventario (compras y ventas) y ajusta el stock de productos.
 
-Ambos microservicios se conectan a una base de datos SQL Server llamada `InventoryDB`, alojada en el servidor `DESKTOP-ANBETID`, usando el usuario `sa` y la contraseña `Paulfriki55`.
+Ambos microservicios se conectan a una base de datos SQL Server llamada `InventoryDB`
 
 ## Tabla de Contenidos
 
@@ -15,10 +15,12 @@ Ambos microservicios se conectan a una base de datos SQL Server llamada `Invento
   - [ProductService](#productservice)
   - [TransactionService](#transactionservice)
 - [Endpoints](#endpoints)
-- [Pruebas](#pruebas)
+- [Creación del Frontend](#frontend)
+- [Ejecución del Frontend](#ejecución-del-frontend)
+  - [ProductService](#productservice)
+  - [TransactionService](#transactionservice)
 - [Estructura del Repositorio](#estructura-del-repositorio)
 - [.gitignore](#gitignore)
-- [Licencia](#licencia)
 
 ## Requisitos
 
@@ -28,5 +30,5 @@ Ambos microservicios se conectan a una base de datos SQL Server llamada `Invento
 
 ## Configuración de la Base de Datos
 
-1. Abre **SQL Server Management Studio (SSMS)** y conéctate al servidor local de preferencia, y carga el script que se encuentra en la raiz del proecto llamado:
+1. Abre **SQL Server Management Studio (SSMS)** y conéctate al servidor local de preferencia, y carga el script que se encuentra en la raiz del proyecto llamado:
 crearBDD.sql en la carpeta BDD, ejecutalo y asegurate de que las tablas se han creado exitosamente en la base de datos InventoryDB
