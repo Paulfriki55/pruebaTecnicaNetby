@@ -245,18 +245,7 @@ ng serve
 │── BDD/
 │   └── crearBDD.sql
 │── evidencias/
-│   ├── database-structure.jpg
-│   ├── swagger-product-service.jpg
-│   ├── swagger-transaction-service.jpg
-│   ├── home-view.jpg
-│   ├── products-list.jpg
-│   ├── create-product.jpg
-│   ├── edit-product.jpg
-│   ├── product-detail.jpg
-│   ├── transactions-list.jpg
-│   ├── create-transaction.jpg
-│   ├── edit-transaction.jpg
-│   └── transaction-detail.jpg
+│   
 │── README.md
 └── .gitignore
 ```
