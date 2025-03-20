@@ -1,0 +1,34 @@
+# Directorios de compilación (bin, obj, etc.)
+**/bin/
+**/obj/
+
+# Archivos de configuración del usuario
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Configuración de Visual Studio Code
+.vscode/
+
+# Carpetas de publicación
+publish/
+
+# Archivos locales de configuración que pueden contener datos sensibles o específicos del entorno
+appsettings.Development.json
+appsettings.Local.json
+
+# Archivos de paquetes
+*.nupkg
+*.snupkg
+
+# Configuración de Rider
+.idea/
+
+# Archivos de caché y metadatos de Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Archivos de log y temporales
+*.log
