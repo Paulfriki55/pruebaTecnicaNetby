@@ -1,0 +1,114 @@
+<!-- src/app/components/product-detail/product-detail.component.html -->
+<div class="page-header">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h1 class="mb-1">Detalle del Producto</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+              <li class="breadcrumb-item"><a routerLink="/products">Productos</a></li>
+              <li class="breadcrumb-item active">Detalle</li>
+            </ol>
+          </nav>
+        </div>
+        <div>
+          <a routerLink="/products" class="btn btn-outline-primary me-2">
+            <i class="bi bi-arrow-left me-2"></i>Volver
+          </a>
+          <a *ngIf="product" [routerLink]="['/products/edit', product.id]" class="btn btn-warning">
+            <i class="bi bi-pencil me-2"></i>Editar
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container py-4">
+    <div *ngIf="loading" class="d-flex justify-content-center py-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+    </div>
+    
+    <div *ngIf="error" class="alert alert-danger">
+      <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ error }}
+    </div>
+    
+    <div *ngIf="product" class="row">
+      <div class="col-lg-4 mb-4 mb-lg-0">
+        <div class="card">
+          <img [src]="product.image" class="card-img-top" alt="{{ product.name }}" style="height: 300px; object-fit: cover;">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="badge bg-light text-dark">{{ product.category }}</span>
+              <span [ngClass]="{'badge bg-success': product.stock > 10, 'badge bg-warning text-dark': product.stock <= 10 && product.stock > 0, 'badge bg-danger': product.stock === 0}">
+                {{ product.stock }} unidades
+              </span>
+            </div>
+            <h4 class="card-title">{{ product.price | currency }}</h4>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title mb-4">{{ product.name }}</h2>
+            
+            <div class="mb-4">
+              <h5 class="text-muted mb-3">Descripción</h5>
+              <p>{{ product.description }}</p>
+            </div>
+            
+            <div class="row g-4">
+              <div class="col-md-6">
+                <div class="card bg-light border-0">
+                  <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">ID del Producto</h6>
+                    <p class="card-text fw-medium">{{ product.id }}</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <div class="card bg-light border-0">
+                  <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Categoría</h6>
+                    <p class="card-text fw-medium">{{ product.category }}</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <div class="card bg-light border-0">
+                  <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Precio</h6>
+                    <p class="card-text fw-medium">{{ product.price | currency }}</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-6">
+                <div class="card bg-light border-0">
+                  <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Stock</h6>
+                    <p class="card-text fw-medium">{{ product.stock }} unidades</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="d-flex mt-4">
+              <a [routerLink]="['/products/edit', product.id]" class="btn btn-warning me-2">
+                <i class="bi bi-pencil me-2"></i>Editar Producto
+              </a>
+              <a routerLink="/transactions/new" class="btn btn-success me-2">
+                <i class="bi bi-plus-lg me-2"></i>Nueva Transacción
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

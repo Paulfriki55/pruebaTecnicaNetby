@@ -1,0 +1,104 @@
+<!-- src/app/components/home/home.component.html -->
+<div class="container py-5">
+    <div class="row mb-5">
+      <div class="col-lg-8 mx-auto text-center">
+        <h1 class="mb-3">Sistema de Gestión de Productos y Transacciones</h1>
+        <p class="lead text-muted">
+          Una aplicación simple para administrar inventario y registrar transacciones de compra y venta.
+        </p>
+        <div class="d-flex justify-content-center gap-2 mt-4">
+          <a routerLink="/products" class="btn btn-primary">
+            <i class="bi bi-box me-2"></i>Ver Productos
+          </a>
+          <a routerLink="/transactions" class="btn btn-outline-primary">
+            <i class="bi bi-arrow-left-right me-2"></i>Ver Transacciones
+          </a>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row mb-5">
+      <div class="col-md-6 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">
+              <i class="bi bi-box-seam me-2 text-primary"></i>Gestión de Productos
+            </h5>
+            <p class="card-text">Administra tu catálogo de productos con información detallada, categorías y niveles de stock.</p>
+            <ul class="list-unstyled">
+              <li><i class="bi bi-check-circle-fill text-success me-2"></i>Crear, editar y eliminar productos</li>
+              <li><i class="bi bi-check-circle-fill text-success me-2"></i>Ver detalles de cada producto</li>
+              <li><i class="bi bi-check-circle-fill text-success me-2"></i>Seguimiento de stock</li>
+            </ul>
+            <a routerLink="/products" class="btn btn-sm btn-outline-primary mt-2">Ir a Productos</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-6 mb-4">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title">
+              <i class="bi bi-arrow-left-right me-2 text-primary"></i>Registro de Transacciones
+            </h5>
+            <p class="card-text">Registra compras y ventas de productos con actualización automática de inventario.</p>
+            <ul class="list-unstyled">
+              <li><i class="bi bi-check-circle-fill text-success me-2"></i>Registrar ventas y compras</li>
+              <li><i class="bi bi-check-circle-fill text-success me-2"></i>Actualización automática de stock</li>
+              <li><i class="bi bi-check-circle-fill text-success me-2"></i>Historial de transacciones</li>
+            </ul>
+            <a routerLink="/transactions" class="btn btn-sm btn-outline-primary mt-2">Ir a Transacciones</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title mb-3">Acerca del Proyecto</h5>
+            <p>
+              Este proyecto es una prueba técnica que demuestra la implementación de una aplicación Angular para gestionar productos y transacciones, consumiendo una API REST.
+            </p>
+            <p>
+              La aplicación permite realizar operaciones CRUD (Crear, Leer, Actualizar, Eliminar) tanto para productos como para transacciones, y mantiene actualizado el inventario automáticamente.
+            </p>
+            
+            <div class="mt-4">
+              <h6>Tecnologías utilizadas:</h6>
+              <div class="d-flex flex-wrap gap-2 mb-3">
+                <span class="badge bg-light text-dark">Angular</span>
+                <span class="badge bg-light text-dark">TypeScript</span>
+                <span class="badge bg-light text-dark">Bootstrap 5</span>
+                <span class="badge bg-light text-dark">Reactive Forms</span>
+                <span class="badge bg-light text-dark">HttpClient</span>
+                <span class="badge bg-light text-dark">Standalone Components</span>
+              </div>
+            </div>
+            
+            <div class="mt-4">
+              <h6>Enlaces:</h6>
+              <div class="d-flex flex-wrap gap-3">
+                <a href="https://github.com/Paulfriki55/pruebaTecnicaNetby" target="_blank" class="d-flex align-items-center text-decoration-none">
+                  <i class="bi bi-github me-2"></i>Repositorio del Proyecto
+                </a>
+                <a href="https://github.com/Paulfriki55" target="_blank" class="d-flex align-items-center text-decoration-none">
+                  <i class="bi bi-github me-2"></i>GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/paul-sanchez-955204271/" target="_blank" class="d-flex align-items-center text-decoration-none">
+                  <i class="bi bi-linkedin me-2"></i>LinkedIn
+                </a>
+              </div>
+            </div>
+            
+            <div class="mt-4 text-center">
+              <p class="text-muted mb-0">
+                <small>Desarrollado por Paul Sanchez - 2023</small>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

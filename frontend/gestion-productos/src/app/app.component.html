@@ -1,0 +1,47 @@
+<!-- src/app/app.component.html -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" routerLink="/">
+      <i class="bi bi-box-seam me-2 text-primary"></i>
+      <span>Prueba Técnica - Gestión de Inventario</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <i class="bi bi-house-door me-1"></i> Inicio
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/products" routerLinkActive="active">
+            <i class="bi bi-box me-1"></i> Productos
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/transactions" routerLinkActive="active">
+            <i class="bi bi-arrow-left-right me-1"></i> Transacciones
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="bg-light py-3 mt-5 border-top">
+  <div class="container text-center">
+    <p class="mb-0 text-muted">
+      <small>Prueba Técnica - Sistema de Gestión de Inventario | 
+        <a href="https://github.com/Paulfriki55" target="_blank" class="text-decoration-none">
+          <i class="bi bi-github"></i> Paul Sanchez
+        </a>
+      </small>
+    </p>
+  </div>
+</footer>

@@ -1,7 +1,20 @@
 using Microsoft.EntityFrameworkCore;
 using ProductService.Data;
+using Microsoft.AspNetCore.Cors; 
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
 
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -18,6 +31,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Agregar el middleware de CORS antes de UseAuthorization
+app.UseCors("AllowAngularApp");
+
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

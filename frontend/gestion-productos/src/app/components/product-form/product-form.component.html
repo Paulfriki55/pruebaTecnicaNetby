@@ -1,0 +1,107 @@
+<!-- src/app/components/product-form/product-form.component.html -->
+<div class="page-header">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h1 class="mb-1">{{ isEditMode ? 'Editar' : 'Nuevo' }} Producto</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+              <li class="breadcrumb-item"><a routerLink="/products">Productos</a></li>
+              <li class="breadcrumb-item active">{{ isEditMode ? 'Editar' : 'Nuevo' }}</li>
+            </ol>
+          </nav>
+        </div>
+        <a routerLink="/products" class="btn btn-outline-primary">
+          <i class="bi bi-arrow-left me-2"></i>Volver
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container py-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-body p-4">
+            <div *ngIf="loading" class="d-flex justify-content-center py-5">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Cargando...</span>
+              </div>
+            </div>
+            
+            <div *ngIf="error" class="alert alert-danger">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ error }}
+            </div>
+            
+            <form [formGroup]="productForm" (ngSubmit)="onSubmit()" *ngIf="!loading">
+              <div class="mb-4">
+                <label for="name" class="form-label">Nombre del Producto</label>
+                <input type="text" class="form-control" id="name" formControlName="name" placeholder="Ingrese el nombre del producto">
+                <div *ngIf="submitted && productForm.controls['name'].errors" class="text-danger mt-1">
+                  <small *ngIf="productForm.controls['name'].errors['required']">El nombre es requerido</small>
+                </div>
+              </div>
+              
+              <div class="mb-4">
+                <label for="description" class="form-label">Descripción</label>
+                <textarea class="form-control" id="description" rows="4" formControlName="description" placeholder="Ingrese la descripción del producto"></textarea>
+                <div *ngIf="submitted && productForm.controls['description'].errors" class="text-danger mt-1">
+                  <small *ngIf="productForm.controls['description'].errors['required']">La descripción es requerida</small>
+                </div>
+              </div>
+              
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <label for="category" class="form-label">Categoría</label>
+                  <input type="text" class="form-control" id="category" formControlName="category" placeholder="Ingrese la categoría">
+                  <div *ngIf="submitted && productForm.controls['category'].errors" class="text-danger mt-1">
+                    <small *ngIf="productForm.controls['category'].errors['required']">La categoría es requerida</small>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <label for="image" class="form-label">URL de la Imagen</label>
+                  <input type="text" class="form-control" id="image" formControlName="image" placeholder="https://ejemplo.com/imagen.jpg">
+                  <div *ngIf="submitted && productForm.controls['image'].errors" class="text-danger mt-1">
+                    <small *ngIf="productForm.controls['image'].errors['required']">La URL de la imagen es requerida</small>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <label for="price" class="form-label">Precio</label>
+                  <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="number" class="form-control" id="price" formControlName="price" min="0" step="0.01" placeholder="0.00">
+                  </div>
+                  <div *ngIf="submitted && productForm.controls['price'].errors" class="text-danger mt-1">
+                    <small *ngIf="productForm.controls['price'].errors['required']">El precio es requerido</small>
+                    <small *ngIf="productForm.controls['price'].errors['min']">El precio debe ser mayor o igual a 0</small>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <label for="stock" class="form-label">Stock</label>
+                  <input type="number" class="form-control" id="stock" formControlName="stock" min="0" placeholder="0">
+                  <div *ngIf="submitted && productForm.controls['stock'].errors" class="text-danger mt-1">
+                    <small *ngIf="productForm.controls['stock'].errors['required']">El stock es requerido</small>
+                    <small *ngIf="productForm.controls['stock'].errors['min']">El stock debe ser mayor o igual a 0</small>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a routerLink="/products" class="btn btn-outline-secondary me-md-2">Cancelar</a>
+                <button type="submit" class="btn btn-primary" [disabled]="loading">
+                  <i class="bi" [ngClass]="isEditMode ? 'bi-save' : 'bi-plus-lg'"></i>
+                  {{ isEditMode ? 'Actualizar' : 'Crear' }} Producto
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

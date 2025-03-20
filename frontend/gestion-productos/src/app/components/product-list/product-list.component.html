@@ -1,0 +1,117 @@
+<!-- src/app/components/product-list/product-list.component.html -->
+<div class="page-header">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h1 class="mb-1">Productos</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+              <li class="breadcrumb-item active">Productos</li>
+            </ol>
+          </nav>
+        </div>
+        <a routerLink="/products/new" class="btn btn-primary">
+          <i class="bi bi-plus-lg me-2"></i>Nuevo Producto
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container py-4">
+    <div class="card mb-4">
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-md-6">
+            <div class="input-group">
+              <span class="input-group-text bg-white">
+                <i class="bi bi-search"></i>
+              </span>
+              <input type="text" class="form-control" placeholder="Buscar productos...">
+            </div>
+          </div>
+          <div class="col-md-6 d-flex justify-content-md-end mt-3 mt-md-0">
+            <select class="form-select" style="max-width: 200px;">
+              <option selected>Todas las categorías</option>
+              <option>Categoría 1</option>
+              <option>Categoría 2</option>
+              <option>Categoría 3</option>
+            </select>
+          </div>
+        </div>
+        
+        <div *ngIf="loading" class="d-flex justify-content-center py-5">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando...</span>
+          </div>
+        </div>
+        
+        <div *ngIf="error" class="alert alert-danger">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ error }}
+        </div>
+        
+        <div *ngIf="!loading && products.length === 0" class="text-center py-5">
+          <div class="mb-4">
+            <i class="bi bi-inbox" style="font-size: 4rem; color: var(--gray-color);"></i>
+          </div>
+          <h4 class="text-muted">No hay productos disponibles</h4>
+          <p class="text-muted">Comienza agregando un nuevo producto</p>
+          <a routerLink="/products/new" class="btn btn-primary mt-2">
+            <i class="bi bi-plus-lg me-2"></i>Agregar Producto
+          </a>
+        </div>
+        
+        <div *ngIf="!loading && products.length > 0" class="table-responsive">
+          <table class="table table-hover align-middle">
+            <thead>
+              <tr>
+                <th scope="col" width="80">ID</th>
+                <th scope="col" width="100">Imagen</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Categoría</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Stock</th>
+                <th scope="col" width="180">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of products">
+                <td>{{ product.id }}</td>
+                <td>
+                  <img [src]="product.image" alt="{{ product.name }}" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                </td>
+                <td>
+                  <div class="fw-medium">{{ product.name }}</div>
+                  <div class="small text-muted text-truncate" style="max-width: 250px;">{{ product.description }}</div>
+                </td>
+                <td>
+                  <span class="badge bg-light text-dark">{{ product.category }}</span>
+                </td>
+                <td>
+                  <div class="fw-medium">{{ product.price | currency }}</div>
+                </td>
+                <td>
+                  <span [ngClass]="{'badge bg-success': product.stock > 10, 'badge bg-warning text-dark': product.stock <= 10 && product.stock > 0, 'badge bg-danger': product.stock === 0}">
+                    {{ product.stock }} unidades
+                  </span>
+                </td>
+                <td>
+                  <div class="btn-group">
+                    <a [routerLink]="['/products', product.id]" class="btn btn-sm btn-outline-primary">
+                      <i class="bi bi-eye"></i>
+                    </a>
+                    <a [routerLink]="['/products/edit', product.id]" class="btn btn-sm btn-outline-warning">
+                      <i class="bi bi-pencil"></i>
+                    </a>
+                    <button (click)="deleteProduct(product.id!)" class="btn btn-sm btn-outline-danger">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

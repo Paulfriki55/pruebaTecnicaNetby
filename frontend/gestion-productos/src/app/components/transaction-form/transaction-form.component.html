@@ -1,0 +1,109 @@
+<!-- src/app/components/transaction-form/transaction-form.component.html -->
+<div class="page-header">
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h1 class="mb-1">{{ isEditMode ? 'Editar' : 'Nueva' }} Transacción</h1>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+              <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+              <li class="breadcrumb-item"><a routerLink="/transactions">Transacciones</a></li>
+              <li class="breadcrumb-item active">{{ isEditMode ? 'Editar' : 'Nueva' }}</li>
+            </ol>
+          </nav>
+        </div>
+        <a routerLink="/transactions" class="btn btn-outline-primary">
+          <i class="bi bi-arrow-left me-2"></i>Volver
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="container py-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card">
+          <div class="card-body p-4">
+            <div *ngIf="loading" class="d-flex justify-content-center py-5">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Cargando...</span>
+              </div>
+            </div>
+            
+            <div *ngIf="error" class="alert alert-danger">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ error }}
+            </div>
+            
+            <form [formGroup]="transactionForm" (ngSubmit)="onSubmit()" *ngIf="!loading">
+              <div class="mb-4">
+                <label for="transactionType" class="form-label">Tipo de Transacción</label>
+                <div class="d-flex">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="transactionType" id="typeVenta" value="venta" formControlName="transactionType">
+                    <label class="form-check-label" for="typeVenta">Venta</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="transactionType" id="typeCompra" value="compra" formControlName="transactionType">
+                    <label class="form-check-label" for="typeCompra">Compra</label>
+                  </div>
+                </div>
+                <div *ngIf="submitted && transactionForm.controls['transactionType'].errors" class="text-danger mt-1">
+                  <small *ngIf="transactionForm.controls['transactionType'].errors['required']">El tipo de transacción es requerido</small>
+                </div>
+              </div>
+              
+              <div class="mb-4">
+                <label for="productId" class="form-label">Producto</label>
+                <select class="form-select" id="productId" formControlName="productId">
+                  <option [ngValue]="null" disabled>Seleccione un producto</option>
+                  <option *ngFor="let product of products" [value]="product.id">{{ product.name }} - {{ product.price | currency }}</option>
+                </select>
+                <div *ngIf="submitted && transactionForm.controls['productId'].errors" class="text-danger mt-1">
+                  <small *ngIf="transactionForm.controls['productId'].errors['required']">El producto es requerido</small>
+                </div>
+              </div>
+              
+              <div class="row mb-4">
+                <div class="col-md-6">
+                  <label for="quantity" class="form-label">Cantidad</label>
+                  <input type="number" class="form-control" id="quantity" formControlName="quantity" min="1" placeholder="1">
+                  <div *ngIf="submitted && transactionForm.controls['quantity'].errors" class="text-danger mt-1">
+                    <small *ngIf="transactionForm.controls['quantity'].errors['required']">La cantidad es requerida</small>
+                    <small *ngIf="transactionForm.controls['quantity'].errors['min']">La cantidad debe ser al menos 1</small>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <label for="unitPrice" class="form-label">Precio Unitario</label>
+                  <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="number" class="form-control" id="unitPrice" formControlName="unitPrice" min="0.01" step="0.01" placeholder="0.00">
+                  </div>
+                  <div *ngIf="submitted && transactionForm.controls['unitPrice'].errors" class="text-danger mt-1">
+                    <small *ngIf="transactionForm.controls['unitPrice'].errors['required']">El precio unitario es requerido</small>
+                    <small *ngIf="transactionForm.controls['unitPrice'].errors['min']">El precio unitario debe ser mayor a 0</small>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="mb-4">
+                <label for="detail" class="form-label">Detalle</label>
+                <textarea class="form-control" id="detail" rows="3" formControlName="detail" placeholder="Ingrese detalles de la transacción"></textarea>
+                <div *ngIf="submitted && transactionForm.controls['detail'].errors" class="text-danger mt-1">
+                  <small *ngIf="transactionForm.controls['detail'].errors['required']">El detalle es requerido</small>
+                </div>
+              </div>
+              
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a routerLink="/transactions" class="btn btn-outline-secondary me-md-2">Cancelar</a>
+                <button type="submit" class="btn btn-primary" [disabled]="loading">
+                  <i class="bi" [ngClass]="isEditMode ? 'bi-save' : 'bi-plus-lg'"></i>
+                  {{ isEditMode ? 'Actualizar' : 'Crear' }} Transacción
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

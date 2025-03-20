@@ -1,7 +1,22 @@
 using Microsoft.EntityFrameworkCore;
 using TransactionService.Data;
+using Microsoft.AspNetCore.Cors;
 
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
+
 
 // Configurar servicios y conexión a la base de datos
 builder.Services.AddControllers();
@@ -20,6 +35,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAngularApp");
+
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
