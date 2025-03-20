@@ -15,6 +15,7 @@ Este proyecto implementa un sistema completo de gestión de inventario con una a
   - [Características](#características)
   - [Configuración e Instalación](#configuración-e-instalación)
   - [Estructura de Componentes](#estructura-de-componentes)
+  - [Capturas de Pantalla](#capturas-de-pantalla)
 - [Ejecución del Proyecto Completo](#ejecución-del-proyecto-completo)
 - [Estructura del Repositorio](#estructura-del-repositorio)
 - [Autor](#autor)
@@ -47,6 +48,12 @@ Ambos componentes se comunican a través de API REST y utilizan una base de dato
 2. Ejecuta el script SQL `crearBDD.sql` ubicado en la carpeta `BDD` del proyecto.
 3. Verifica que la base de datos `InventoryDB` y sus tablas se hayan creado correctamente.
 
+### Estructura de la Base de Datos
+
+A continuación se muestra la estructura de la base de datos implementada:
+
+![Estructura de la Base de Datos](evidencias/database-structure.jpg)
+
 ## Backend
 
 ### ProductService
@@ -66,6 +73,10 @@ dotnet run
 
 El servicio estará disponible en: `https://localhost:7022/`
 
+#### Interfaz Swagger de ProductService:
+
+![Swagger ProductService](evidencias/swagger-product-service.jpg)
+
 ### TransactionService
 
 Este microservicio gestiona todas las operaciones relacionadas con transacciones:
@@ -83,6 +94,10 @@ dotnet run
 ```
 
 El servicio estará disponible en: `https://localhost:7283/`
+
+#### Interfaz Swagger de TransactionService:
+
+![Swagger TransactionService](evidencias/swagger-transaction-service.jpg)
 
 ### Endpoints
 
@@ -149,6 +164,40 @@ La aplicación estará disponible en: `http://localhost:4200/`
   - Detalle de transacción
   - Formulario de registro de transacciones
 
+### Capturas de Pantalla
+
+#### Página de Inicio (Home)
+
+![Página de Inicio](evidencias/home-view.jpg)
+
+#### Gestión de Productos
+
+##### Lista de Productos
+![Lista de Productos](evidencias/products-list.jpg)
+
+##### Creación de Producto
+![Creación de Producto](evidencias/create-product.jpg)
+
+##### Edición de Producto
+![Edición de Producto](evidencias/edit-product.jpg)
+
+##### Detalle de Producto
+![Detalle de Producto](evidencias/product-detail.jpg)
+
+#### Gestión de Transacciones
+
+##### Lista de Transacciones
+![Lista de Transacciones](evidencias/transactions-list.jpg)
+
+##### Creación de Transacción
+![Creación de Transacción](evidencias/create-transaction.jpg)
+
+##### Edición de Transacción
+![Edición de Transacción](evidencias/edit-transaction.jpg)
+
+##### Detalle de Transacción
+![Detalle de Transacción](evidencias/transaction-detail.jpg)
+
 ## Ejecución del Proyecto Completo
 
 Para ejecutar el proyecto completo, sigue estos pasos:
@@ -195,6 +244,19 @@ ng serve
 │       └── ...
 │── BDD/
 │   └── crearBDD.sql
+│── evidencias/
+│   ├── database-structure.jpg
+│   ├── swagger-product-service.jpg
+│   ├── swagger-transaction-service.jpg
+│   ├── home-view.jpg
+│   ├── products-list.jpg
+│   ├── create-product.jpg
+│   ├── edit-product.jpg
+│   ├── product-detail.jpg
+│   ├── transactions-list.jpg
+│   ├── create-transaction.jpg
+│   ├── edit-transaction.jpg
+│   └── transaction-detail.jpg
 │── README.md
 └── .gitignore
 ```
