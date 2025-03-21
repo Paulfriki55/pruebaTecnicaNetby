@@ -1,111 +1,149 @@
 <!-- src/app/components/transaction-list/transaction-list.component.html -->
 <div class="page-header">
-    <div class="container">
-      <div class="d-flex justify-content-between align-items-center">
-        <div>
-          <h1 class="mb-1">Transacciones</h1>
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb mb-0">
-              <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
-              <li class="breadcrumb-item active">Transacciones</li>
-            </ol>
-          </nav>
-        </div>
-        <a routerLink="/transactions/new" class="btn btn-primary">
-          <i class="bi bi-plus-lg me-2"></i>Nueva Transacción
-        </a>
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <div>
+        <h1 class="mb-1">Transacciones</h1>
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a routerLink="/">Inicio</a></li>
+            <li class="breadcrumb-item active">Transacciones</li>
+          </ol>
+        </nav>
       </div>
+      <a routerLink="/transactions/new" class="btn btn-primary">
+        <i class="bi bi-plus-lg me-2"></i>Nueva Transacción
+      </a>
     </div>
   </div>
-  
-  <div class="container py-4">
-    <div class="card mb-4">
-      <div class="card-body">
-        <div class="row mb-3">
-          <div class="col-md-6">
-            <div class="input-group">
-              <span class="input-group-text bg-white">
-                <i class="bi bi-search"></i>
-              </span>
-              <input type="text" class="form-control" placeholder="Buscar transacciones...">
+</div>
+
+<div class="container py-4">
+  <div class="card mb-4">
+    <div class="card-body">
+      <!-- Filtros -->
+      <div class="row mb-4">
+        <div class="col-12">
+          <h5 class="mb-3">Filtros</h5>
+          <div class="row g-3">
+            <div class="col-md-4">
+              <label for="productIdFilter" class="form-label">ID de Producto</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="productIdFilter" 
+                placeholder="Buscar por ID..." 
+                [(ngModel)]="productIdFilter"
+                (input)="applyFilters()">
+            </div>
+            <div class="col-md-4">
+              <label for="detailFilter" class="form-label">Detalle</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="detailFilter" 
+                placeholder="Buscar en detalle..." 
+                [(ngModel)]="detailFilter"
+                (input)="applyFilters()">
+            </div>
+            <div class="col-md-4">
+              <label for="transactionType" class="form-label">Tipo</label>
+              <select 
+                class="form-select" 
+                id="transactionType" 
+                [(ngModel)]="transactionType"
+                (change)="applyFilters()">
+                <option value="todos">Todos</option>
+                <option value="venta">Ventas</option>
+                <option value="compra">Compras</option>
+              </select>
             </div>
           </div>
-          <div class="col-md-6 d-flex justify-content-md-end mt-3 mt-md-0">
-            <select class="form-select" style="max-width: 200px;">
-              <option selected>Todos los tipos</option>
-              <option>Compras</option>
-              <option>Ventas</option>
-            </select>
+          <div class="mt-3 text-end">
+            <button class="btn btn-outline-secondary" (click)="resetFilters()">
+              <i class="bi bi-arrow-counterclockwise me-2"></i>Limpiar Filtros
+            </button>
           </div>
         </div>
-        
-        <div *ngIf="loading" class="d-flex justify-content-center py-5">
-          <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden">Cargando...</span>
-          </div>
+      </div>
+      
+      <div *ngIf="loading" class="d-flex justify-content-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Cargando...</span>
         </div>
-        
-        <div *ngIf="error" class="alert alert-danger">
-          <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ error }}
+      </div>
+      
+      <div *ngIf="error" class="alert alert-danger">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ error }}
+      </div>
+      
+      <div *ngIf="!loading && filteredTransactions.length === 0" class="text-center py-5">
+        <div class="mb-4">
+          <i class="bi bi-arrow-left-right" style="font-size: 4rem; color: var(--gray-color);"></i>
         </div>
-        
-        <div *ngIf="!loading && transactions.length === 0" class="text-center py-5">
-          <div class="mb-4">
-            <i class="bi bi-arrow-left-right" style="font-size: 4rem; color: var(--gray-color);"></i>
-          </div>
-          <h4 class="text-muted">No hay transacciones disponibles</h4>
-          <p class="text-muted">Comienza registrando una nueva transacción</p>
-          <a routerLink="/transactions/new" class="btn btn-primary mt-2">
+        <h4 class="text-muted">No hay transacciones disponibles</h4>
+        <p class="text-muted" *ngIf="transactions.length > 0">No se encontraron resultados con los filtros aplicados</p>
+        <p class="text-muted" *ngIf="transactions.length === 0">Comienza registrando una nueva transacción</p>
+        <div class="mt-3">
+          <button *ngIf="transactions.length > 0" class="btn btn-outline-secondary me-2" (click)="resetFilters()">
+            <i class="bi bi-arrow-counterclockwise me-2"></i>Limpiar Filtros
+          </button>
+          <a routerLink="/transactions/new" class="btn btn-primary">
             <i class="bi bi-plus-lg me-2"></i>Agregar Transacción
           </a>
         </div>
-        
-        <div *ngIf="!loading && transactions.length > 0" class="table-responsive">
-          <table class="table table-hover align-middle">
-            <thead>
-              <tr>
-                <th scope="col" width="80">ID</th>
-                <th scope="col">Tipo</th>
-                <th scope="col">ID Producto</th>
-                <th scope="col">Cantidad</th>
-                <th scope="col">Precio Unitario</th>
-                <th scope="col">Precio Total</th>
-                <th scope="col">Detalle</th>
-                <th scope="col" width="180">Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let transaction of transactions">
-                <td>{{ transaction.id }}</td>
-                <td>
-                  <span [ngClass]="getTransactionTypeClass(transaction.transactionType)">
-                    {{ transaction.transactionType === 'venta' ? 'Venta' : 'Compra' }}
-                  </span>
-                </td>
-                <td>{{ transaction.productId }}</td>
-                <td>{{ transaction.quantity }}</td>
-                <td>{{ transaction.unitPrice | currency }}</td>
-                <td>{{ transaction.totalPrice | currency }}</td>
-                <td>
-                  <div class="text-truncate" style="max-width: 200px;">{{ transaction.detail }}</div>
-                </td>
-                <td>
-                  <div class="btn-group">
-                    <a [routerLink]="['/transactions', transaction.id]" class="btn btn-sm btn-outline-primary">
-                      <i class="bi bi-eye"></i>
-                    </a>
-                    <a [routerLink]="['/transactions/edit', transaction.id]" class="btn btn-sm btn-outline-warning">
-                      <i class="bi bi-pencil"></i>
-                    </a>
-                    <button (click)="deleteTransaction(transaction.id!)" class="btn btn-sm btn-outline-danger">
-                      <i class="bi bi-trash"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+      </div>
+      
+      <div *ngIf="!loading && filteredTransactions.length > 0" class="table-responsive">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-muted">Mostrando {{ filteredTransactions.length }} de {{ transactions.length }} transacciones</span>
         </div>
+        
+        <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th scope="col" width="80">ID</th>
+              <th scope="col">Tipo</th>
+              <th scope="col">ID Producto</th>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Precio Unitario</th>
+              <th scope="col">Precio Total</th>
+              <th scope="col">Detalle</th>
+              <th scope="col" width="180">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transaction of filteredTransactions">
+              <td>{{ transaction.id }}</td>
+              <td>
+                <span [ngClass]="getTransactionTypeClass(transaction.transactionType)">
+                  {{ transaction.transactionType === 'venta' ? 'Venta' : 'Compra' }}
+                </span>
+              </td>
+              <td>{{ transaction.productId }}</td>
+              <td>{{ transaction.quantity }}</td>
+              <td>{{ transaction.unitPrice | currency }}</td>
+              <td>{{ transaction.totalPrice | currency }}</td>
+              <td>
+                <div class="text-truncate" style="max-width: 200px;">{{ transaction.detail }}</div>
+              </td>
+              <td>
+                <div class="btn-group">
+                  <a [routerLink]="['/transactions', transaction.id]" class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-eye"></i>
+                  </a>
+                  <a [routerLink]="['/transactions/edit', transaction.id]" class="btn btn-sm btn-outline-warning">
+                    <i class="bi bi-pencil"></i>
+                  </a>
+                  <button (click)="deleteTransaction(transaction.id!)" class="btn btn-sm btn-outline-danger">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
+</div>
